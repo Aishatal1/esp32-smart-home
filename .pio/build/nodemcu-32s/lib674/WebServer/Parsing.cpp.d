@@ -1,4 +1,5 @@
-.pio/build/nodemcu-32s/src/main.cpp.o: src/main.cpp \
+.pio/build/nodemcu-32s/lib674/WebServer/Parsing.cpp.o: \
+ /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/Parsing.cpp \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp_arduino_version.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/freertos/FreeRTOS.h \
@@ -133,6 +134,13 @@
  /home/aisha/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_hw_support/include/soc/esp32/spiram.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
+ /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-log.h \
+ /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiServer.h \
+ /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/Server.h \
+ /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiClient.h \
+ /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/Client.h \
+ /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiClient.h \
+ /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/WebServer.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFi.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/Print.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/IPv6Address.h \
@@ -186,20 +194,12 @@
  /home/aisha/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/wifi_provisioning/include/wifi_provisioning/wifi_config.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiAP.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiScan.h \
- /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiClient.h \
- /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/Client.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiServer.h \
- /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/Server.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/Udp.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/cbuf.h \
- .pio/libdeps/nodemcu-32s/ESP32Servo/src/ESP32Servo.h \
- .pio/libdeps/nodemcu-32s/ESP32Servo/src/ESP32PWM.h \
- /home/aisha/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-ledc.h \
- /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/WebServer.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/HTTP_Method.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/nghttp/port/include/http_parser.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/Uri.h \
  /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/detail/RequestHandler.h \
- /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/FS/src/FS.h \
- /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/LittleFS/src/LittleFS.h
+ /home/aisha/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/detail/mimetable.h

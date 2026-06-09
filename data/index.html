@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            border-left: 4px solid #667eea;
+            padding-left: 12px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        .btn-on { background: #10ac84; color: white; }
+        .btn-off { background: #ee5a24; color: white; }
+        .btn-open { background: #0abde3; color: white; }
+        .btn-close { background: #eb4d4b; color: white; }
+        .btn-both { background: #5f27cd; color: white; }
+
+        .status-card {
+            background: #2d3436;
+            color: #dfe6e9;
+        }
+
+        .status-card h2 {
+            color: #dfe6e9;
+            border-left-color: #0abde3;
+        }
+
+        .status-content {
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #10ac84;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            animation: fadeOut 3s forwards;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: translateY(0); }
+            70% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-20px); visibility: hidden; }
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            font-size: 0.8rem;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 480px) {
+            .container { max-width: 100%; }
+            button { padding: 10px 15px; font-size: 0.9rem; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏠 Smart Home Control</h1>
+
+        <!-- Living Room Card -->
+        <div class="card">
+            <h2>💡 Living Room</h2>
+            <div class="button-group">
+                <button class="btn-on" onclick="sendCommand('living_on')">ON</button>
+                <button class="btn-off" onclick="sendCommand('living_off')">OFF</button>
+            </div>
+        </div>
+
+        <!-- Bedroom Card -->
+        <div class="card">
+            <h2>💡 Bedroom</h2>
+            <div class="button-group">
+                <button class="btn-on" onclick="sendCommand('bedroom_on')">ON</button>
+                <button class="btn-off" onclick="sendCommand('bedroom_off')">OFF</button>
+            </div>
+        </div>
+
+        <!-- Living Window Card -->
+        <div class="card">
+            <h2>🪟 Living Room Window</h2>
+            <div class="button-group">
+                <button class="btn-open" onclick="sendCommand('living_window_open')">OPEN</button>
+                <button class="btn-close" onclick="sendCommand('living_window_close')">CLOSE</button>
+            </div>
+        </div>
+
+        <!-- Bedroom Window Card -->
+        <div class="card">
+            <h2>🪟 Bedroom Window</h2>
+            <div class="button-group">
+                <button class="btn-open" onclick="sendCommand('bedroom_window_open')">OPEN</button>
+                <button class="btn-close" onclick="sendCommand('bedroom_window_close')">CLOSE</button>
+            </div>
+        </div>
+
+        <!-- Quick Actions Card -->
+        <div class="card">
+            <h2>⚡ Quick Actions</h2>
+            <div class="button-group">
+                <button class="btn-both" onclick="sendCommand('both_windows_open')">Both Windows OPEN</button>
+                <button class="btn-both" onclick="sendCommand('both_windows_close')">Both Windows CLOSE</button>
+            </div>
+        </div>
+
+        <!-- Status Card (Doorbell status shown here) -->
+        <div class="card status-card">
+            <h2>📊 System Status</h2>
+            <div class="status-content" id="status">
+                Loading...
+            </div>
+        </div>
+
+        <div class="footer">
+            ESP32 Smart Home System | Connected via WiFi
+        </div>
+    </div>
+
+    <div id="notification"></div>
+
+    <script>
+        const baseUrl = window.location.origin;
+
+        function sendCommand(command) {
+            fetch(baseUrl + '/' + command)
+                .then(response => response.text())
+                .then(data => {
+                    showNotification(data);
+                    updateStatus();
+                })
+                .catch(err => console.error('Error:', err));
+        }
+
+        function showNotification(message) {
+            const notifDiv = document.getElementById('notification');
+            notifDiv.innerHTML = '<div class="notification">' + message + '</div>';
+            setTimeout(() => {
+                notifDiv.innerHTML = '';
+            }, 2500);
+        }
+
+        function updateStatus() {
+            fetch(baseUrl + '/status')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('status').innerHTML = `
+                        💡 Living Light: ${data.livingLight ? '✅ ON' : '❌ OFF'}<br>
+                        💡 Bedroom Light: ${data.bedroomLight ? '✅ ON' : '❌ OFF'}<br>
+                        🪟 Living Window: ${data.livingWindowOpen ? '📂 OPEN' : '📁 CLOSED'}<br>
+                        🪟 Bedroom Window: ${data.bedroomWindowOpen ? '📂 OPEN' : '📁 CLOSED'}<br>
+                        🔔 Last Doorbell: ${data.lastDoorbell || 'None'}<br>
+                        📶 WiFi: Connected
+                    `;
+                })
+                .catch(err => {
+                    document.getElementById('status').innerHTML = '❌ Error fetching status';
+                    console.error('Status error:', err);
+                });
+        }
+
+        setInterval(updateStatus, 2000);
+        updateStatus();
+    </script>
+</body>
+</html>
